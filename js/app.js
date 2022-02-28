@@ -28,3 +28,26 @@ const displaySearchResult = phones => {
     })
 }
 
+const loadPhoneDetails = id => {
+    const url = `https://openapi.programming-hero.com/api/phone/${id}`
+    fetch(url)
+        .then(response => response.json())
+        .then(data => displayPhoneDetails(data.data))
+}
+
+const displayPhoneDetails = phone => {
+    console.log(phone);
+    const phoneDetails = document.getElementById('phone-details')
+    phoneDetails.innerHTML = `
+        <div class="w-50 mx-auto">
+            <img src="${phone.image}" class="card-img-top "  alt="...">
+        </div>
+        <div>
+            <p class="my-2"> <strong>Release Date</strong> ${phone?.releaseDate} </p>
+            <p class="my-2"> <strong>Display Size : </strong> ${phone.mainFeatures.displaySize} </p>
+            <p class="my-2"> <strong>Chip Set : </strong> ${phone.mainFeatures.chipSet} </p>
+            <p class="my-2"> <strong>Momory : </strong> ${phone.mainFeatures.memory} </p>
+            <p class="my-2"> <strong>Storage : </strong> ${phone.mainFeatures.storage} </p>
+        </div>
+    `
+}
