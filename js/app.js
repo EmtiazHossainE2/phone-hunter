@@ -14,7 +14,6 @@ const searchBtn = () => {
 
 }
 const displaySearchResult = phones => {
-    console.log(phones);
     const searchResult = document.getElementById('search-result')
     searchResult.textContent = ''
     if (phones[0] == null) {
@@ -26,7 +25,6 @@ const displaySearchResult = phones => {
     }
     else {
         phones.forEach(phone => {
-            // console.log(phone);
             const div = document.createElement('div')
             div.classList.add('col')
             div.innerHTML = `
@@ -54,7 +52,6 @@ const loadPhoneDetails = id => {
 }
 
 const displayPhoneDetails = phone => {
-    // console.log(phone);
     const phoneDetails = document.getElementById('phone-details')
     phoneDetails.innerHTML = `
         <div class="w-50 mx-auto">
