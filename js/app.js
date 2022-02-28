@@ -6,6 +6,8 @@ const searchBtn = () => {
         alert('Oppps ! Write your favourite Phone name')
     }
     else {
+        document.getElementById("spinner").classList.remove("d-none");
+        document.getElementById("search-result").classList.add("d-none");
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
         fetch(url)
             .then(response => response.json())
@@ -14,6 +16,8 @@ const searchBtn = () => {
 
 }
 const displaySearchResult = phones => {
+    document.getElementById("spinner").classList.add("d-none");
+    document.getElementById("search-result").classList.remove("d-none");
     const searchResult = document.getElementById('search-result')
     searchResult.textContent = ''
     if (phones[0] == null) {
