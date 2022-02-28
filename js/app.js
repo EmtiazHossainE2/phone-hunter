@@ -2,30 +2,48 @@ const searchBtn = () => {
     const searchInput = document.getElementById('search-text')
     const searchText = searchInput.value
     searchInput.value = ''
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
-    fetch(url)
-        .then(response => response.json())
-        .then(data => displaySearchResult(data.data.slice(0, 20)))
+    if (searchText == '') {
+        alert('Oppps ! Write your favourite Phone name')
+    }
+    else {
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
+        fetch(url)
+            .then(response => response.json())
+            .then(data => displaySearchResult(data.data.slice(0, 20)))
+    }
+
 }
 const displaySearchResult = phones => {
+    console.log(phones);
     const searchResult = document.getElementById('search-result')
-    phones.forEach(phone => {
-        // console.log(phone);
+    searchResult.textContent = ''
+    if (phones[0] == null) {
         const div = document.createElement('div')
-        div.classList.add('col')
         div.innerHTML = `
-            <div class="card h-100 py-4">
-                <img src="${phone.image}" class="card-img-top w-50 mx-auto"  alt="...">
-                <div class="card-body">
-                    <h4 class="card-title text-center">${phone.phone_name}</h4>
-                    <h5 class="card-title text-center">${phone.brand}</h5>
-                    <button  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="loadPhoneDetails('${phone.slug}')" type="button" class="btn btn-success d-block mx-auto">Details Info</button>
-                </div>
-                </div>
-            </div>
+            <h4 class="text-light ms-5  ps-5">Sorry ! Nothing To Show</h4>
         `
         searchResult.appendChild(div)
-    })
+    }
+    else {
+        phones.forEach(phone => {
+            // console.log(phone);
+            const div = document.createElement('div')
+            div.classList.add('col')
+            div.innerHTML = `
+                <div class="card h-100 py-4">
+                    <img src="${phone.image}" class="card-img-top w-50 mx-auto"  alt="...">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">${phone.phone_name}</h4>
+                        <h5 class="card-title text-center">${phone.brand}</h5>
+                        <button  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="loadPhoneDetails('${phone.slug}')" type="button" class="btn btn-success d-block mx-auto">Details Info</button>
+                    </div>
+                    </div>
+                </div>
+            `
+            searchResult.appendChild(div)
+        })
+    }
+
 }
 
 const loadPhoneDetails = id => {
@@ -36,14 +54,14 @@ const loadPhoneDetails = id => {
 }
 
 const displayPhoneDetails = phone => {
-    console.log(phone);
+    // console.log(phone);
     const phoneDetails = document.getElementById('phone-details')
     phoneDetails.innerHTML = `
         <div class="w-50 mx-auto">
             <img src="${phone.image}" class="card-img-top "  alt="...">
         </div>
         <div>
-            <p class="my-2"> <strong>Release Date</strong> ${phone?.releaseDate} </p>
+            <p class="my-2"> <strong>Release Date : </strong> ${phone?.releaseDate} </p>
             <p class="my-2"> <strong>Display Size : </strong> ${phone.mainFeatures.displaySize} </p>
             <p class="my-2"> <strong>Chip Set : </strong> ${phone.mainFeatures.chipSet} </p>
             <p class="my-2"> <strong>Momory : </strong> ${phone.mainFeatures.memory} </p>
