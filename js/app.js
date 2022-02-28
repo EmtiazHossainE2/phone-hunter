@@ -17,11 +17,11 @@ const displaySearchResult = phones => {
     const searchResult = document.getElementById('search-result')
     searchResult.textContent = ''
     if (phones[0] == null) {
-        const div = document.createElement('div')
-        div.innerHTML = `
-            <h4 class="text-light ms-5  ps-5">Sorry ! Nothing To Show</h4>
+        const section = document.createElement('section')
+        section.innerHTML = `
+            <h4 class="text-light ms-5">Sorry ! Nothing To Show</h4>
         `
-        searchResult.appendChild(div)
+        searchResult.appendChild(section)
     }
     else {
         phones.forEach(phone => {
@@ -52,6 +52,7 @@ const loadPhoneDetails = id => {
 }
 
 const displayPhoneDetails = phone => {
+    console.log(phone);
     const phoneDetails = document.getElementById('phone-details')
     phoneDetails.innerHTML = `
         <div class="w-50 mx-auto">
@@ -63,6 +64,36 @@ const displayPhoneDetails = phone => {
             <p class="my-2"> <strong>Chip Set : </strong> ${phone.mainFeatures.chipSet} </p>
             <p class="my-2"> <strong>Momory : </strong> ${phone.mainFeatures.memory} </p>
             <p class="my-2"> <strong>Storage : </strong> ${phone.mainFeatures.storage} </p>
-        </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Senssor
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">${phone.mainFeatures.sensors}</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        Other Features
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <p>${phone.others?.WLAN}</p>
+                        <p>${phone.others?.Bluetooth}</p>
+                        <p>${phone.others?.GPS}</p>
+                    </div>
+                </div>
+            </div>
+        </div>                  
+
     `
 }
