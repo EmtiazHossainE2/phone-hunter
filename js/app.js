@@ -4,6 +4,8 @@ document.getElementById("search-text").addEventListener("keyup", function (event
     const searchText = searchInput.value
     // console.log(event.key);
     if (event.key == 'Enter') {
+        document.getElementById("spinner").classList.remove("d-none");
+        document.getElementById("search-result").classList.add("d-none");
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
         fetch(url)
             .then(response => response.json())
