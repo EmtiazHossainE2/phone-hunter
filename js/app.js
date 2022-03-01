@@ -1,3 +1,17 @@
+// keyup event added 
+document.getElementById("search-text").addEventListener("keyup", function (event) {
+    const searchInput = document.getElementById('search-text')
+    const searchText = searchInput.value
+    // console.log(event.key);
+    if (event.key == 'Enter') {
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
+        fetch(url)
+            .then(response => response.json())
+            .then(data => displaySearchResult(data.data.slice(0, 20)))
+        searchInput.value = ''
+    }
+});
+
 const searchBtn = () => {
     const searchInput = document.getElementById('search-text')
     const searchText = searchInput.value
