@@ -110,9 +110,9 @@ const displayPhoneDetails = phone => {
                 <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
                     data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
-                        <p>✅  ${phone.others?.WLAN ? phone.others?.WLAN : 'Not Included'} </p>
-                        <p>✅  ${phone.others?.Bluetooth ? phone.others?.Bluetooth : 'Not Included'}</p>
-                        <p>✅  ${phone.others?.GPS ? phone.others?.GPS : 'Not Included'}</p>
+                        <p>✅ WLAN :  ${phone.others?.WLAN ? phone.others?.WLAN : ' Not Included'} </p>
+                        <p>✅ Bluetooth :  ${phone.others?.Bluetooth ? phone.others?.Bluetooth : ' Not Included'}</p>
+                        <p>✅ GPS :  ${phone.others?.GPS ? phone.others?.GPS : ' Not Included'}</p>
                     </div>
                 </div>
             </div>
