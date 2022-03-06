@@ -1,18 +1,4 @@
-// keyup event added 
-document.getElementById("search-text").addEventListener("keyup", function (event) {
-    const searchInput = document.getElementById('search-text')
-    const searchText = searchInput.value
-    // console.log(event.key);
-    if (event.key == 'Enter') {
-        document.getElementById("spinner").classList.remove("d-none");
-        document.getElementById("search-result").classList.add("d-none");
-        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
-        fetch(url)
-            .then(response => response.json())
-            .then(data => displaySearchResult(data.data.slice(0, 20)))
-        searchInput.value = ''
-    }
-});
+let phoneData = []
 
 const searchBtn = () => {
     const searchInput = document.getElementById('search-text')
@@ -27,12 +13,17 @@ const searchBtn = () => {
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
         fetch(url)
             .then(response => response.json())
-            .then(data => displaySearchResult(data.data.slice(0, 20)))
+            .then(data => {
+                phoneData = data.data;
+                displaySearchResult(data.data.slice(0, 20))
+            })
     }
 
 }
+
 //display search result 
 const displaySearchResult = phones => {
+    console.log(phones);
     document.getElementById("spinner").classList.add("d-none");
     document.getElementById("search-result").classList.remove("d-none");
     const searchResult = document.getElementById('search-result')
@@ -61,8 +52,10 @@ const displaySearchResult = phones => {
             `
             searchResult.appendChild(div)
         })
+        if (phoneData.length > 20) {
+            document.getElementById("show-more").classList.remove("d-none");
+        }
     }
-
 }
 
 const loadPhoneDetails = id => {
@@ -116,7 +109,31 @@ const displayPhoneDetails = phone => {
                     </div>
                 </div>
             </div>
-        </div>                  
-
+        </div>      
     `
+}
+
+// keyup event added 
+document.getElementById("show-more").classList.add("d-none");
+document.getElementById("search-text").addEventListener("keyup", function (event) {
+    const searchInput = document.getElementById('search-text')
+    const searchText = searchInput.value
+    if (event.key == 'Enter') {
+        document.getElementById("spinner").classList.remove("d-none");
+        document.getElementById("search-result").classList.add("d-none");
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                phoneData = data.data;
+                displaySearchResult(data.data.slice(0, 20))
+            })
+        searchInput.value = ''
+    }
+});
+
+// show more btn 
+const showMore = () => {
+    displaySearchResult(phoneData)
+    document.getElementById("show-more").classList.add("d-none");
 }
